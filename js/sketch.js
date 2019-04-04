@@ -19,7 +19,6 @@ function preload(){
     spaceShipImage = loadImage('../media/space-ship.png');
     boulderImage = loadImage('../media/boulder.png');
     alienImage = loadImage('../media/alien.png');
-
 }
 
 
@@ -48,12 +47,13 @@ function setup(){
     // testing alien
     alien1 = createSprite(100,100);
     alien1.addImage(alienImage);
-    alien1.velocity.x = 0.4;
+    alien1.velocity.x = 0.8;
+
 
 
     // going to create a group of aliens by row  ~~~~ 1 row = 11 aliens etc.
     // aliens = new Group();
-
+    // console.log(aliens)
 
     //  missle testing 
     missleImage = loadImage('../media/missle.png')
@@ -81,24 +81,51 @@ function draw(){
         player.position.x = player.position.x - 4;
         // console.log(player.position.x)
     }
-
-
-    //  for missle strike
+    // shoot missle vertically 
     if(keyDown(UP_ARROW)){
         let missle = createSprite(player.position.x, player.position.y);
         missle.addImage(missleImage);
-
         missle.setSpeed(4 + player.getSpeed(), player.position.y + 320);
-        // missle.life = 60;
-        // missles.add(missle)
+        missle.life = 500;
+        missles.add(missle)
+    }
+    // missle overlap 
+    alien1.overlap(missles);
+
+    //  alien position within canvas
+
+    if(alien1.position.x > 900){
+        alien1.position.x = 0
     }
 
 
 
 
+    // alienHit();
     drawSprites();
-
 }
+
+
+
+
+
+
+
+
+// function alienHit(alien){
+//     // let newType = alien.type - 1;
+//     if(missles.overlap(alien)){
+//         console.log(missles);
+//     }
+//     // for(let i=0; i < 10; i++){
+//     //     let explodeAlien = createSprite(missle.position.x, missle.position.y);
+
+//     // }
+//     missles.remove();
+//     alien.remove();
+
+// }
+
 
 
 
