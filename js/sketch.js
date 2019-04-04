@@ -1,19 +1,15 @@
-
-
 // ----- space invadors game board ------ 
 
 let player;
-let aliens; 
+let aliens = []; 
 let missles;
 let spaceShipImage, boulderImage, alienImage, missleImage;
 
+// --------alien rows --------------
 
-// alien testing ------------------- 
-let alien1;
-let alien2;
+let alienRow1;
 
 //  --------------------------------
-
 
 function preload(){
     spaceShipImage = loadImage('../media/space-ship.png');
@@ -21,18 +17,15 @@ function preload(){
     alienImage = loadImage('../media/alien.png');
 }
 
-
-
-
-
 // Sprite is the main building block of p5.play
 // https://molleindustria.github.io/p5.play/docs/classes/Sprite.html
 
 function setup(){
     createCanvas(900, 700);
+
     player = createSprite(width/2, height - 30);
     player.addImage('normal',spaceShipImage);
-    player.maxSpeed = 3;
+    player.maxSpeed = 2;
     player.friction = 0.98;
     player.setCollider('circle', 0 ,0, 20 );
 
@@ -44,9 +37,17 @@ function setup(){
     boulder3.addImage(boulderImage);
 
     // testing alien
-    alien1 = createSprite(100,100);
-    alien1.addImage(alienImage);
-    alien1.velocity.x = 0.8;
+    // alien1 = createSprite(100,100);
+    // alien1.addImage(alienImage);
+    // alien1.velocity.x = 0.8;
+
+
+    //  ----------- testing one alien reproduction function ------------
+
+    // alien2 = createAlien(100, 200);
+
+    //  ----------- testing row alien reproduction function ------------
+    alienRow1 =  createAlienRow(10, 50);
 
 
 
@@ -54,14 +55,10 @@ function setup(){
     // aliens = new Group();
     // console.log(aliens)
 
-    //  missle testing 
+    //  missle testing  
     missleImage = loadImage('../media/missle.png')
     missles = new Group()
-
-
 }
-
-
 
 function draw(){
     background(255,0,0);
@@ -81,38 +78,60 @@ function draw(){
         // console.log(player.position.x)
     }
     // shoot missle vertically 
-    if(keyDown(UP_ARROW)){
+    if(keyDown(UP_ARROW))
+    {
         let missle = createSprite(player.position.x, player.position.y);
         missle.addImage(missleImage);
         missle.setSpeed(4 + player.getSpeed(), player.position.y + 320);
         missle.life = 500;
         missles.add(missle)
     }
-    // missle overlap 
-    alien1.overlap(missles,alienHit);
 
-    //  alien position within canvas
-    if(alien1.position.x > 900){
-        alien1.position.x = 0
+    //  --------------------------------------------------------------
+    // target and shoot aliens ~~~ calls on alien hit function 
+    // alien1.overlap(missles,alienHit);
+
+
+
+    //  alien movement position within canvas
+    // if(alien1.position.x > 900){
+    //     alien1.position.x = 0
+    // }
+
+
+
+    //  row aliens 
+    for(let a=0; a < aliens.length; a++){
+        if(aliens[a].position.x > 900){
+            aliens[a].position.x = 0;
+        }
+        aliens[a].overlap(missles,alienHit);
     }
 
-    // alienHit();
+    // ---------------------------------------------------------------
+
+
     drawSprites();
 }
 
-
-
-
-
-
 function alienHit(alien, missle){
-    let explode = alien.type-1;
-
-
+    let explode = alien.type - 1;
     missle.remove();
     alien.remove();
 }
 
+function createAlienRow(xR, yR){
+    for(let a = 0; a < 8; a++){
+        createAlien(xR + (a *70), yR);
+    }
+}
+
+function createAlien(position_x, position_y){
+    let create_alien = createSprite(position_x,position_y);
+    create_alien.addImage(alienImage);
+    create_alien.velocity.x = 0.8;
+    aliens.push(create_alien);
+};
 
 
 
