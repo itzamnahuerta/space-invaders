@@ -1,0 +1,19 @@
+html, body{
+    margin: 0;
+    padding: 0; 
+    height: 100%;
+}
+
+body{
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#defaultCanvas0 {
+    position: absolute;
+
+
+}
+
