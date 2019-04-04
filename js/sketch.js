@@ -25,7 +25,6 @@ function preload(){
 
 
 
-
 // Sprite is the main building block of p5.play
 // https://molleindustria.github.io/p5.play/docs/classes/Sprite.html
 
@@ -90,16 +89,12 @@ function draw(){
         missles.add(missle)
     }
     // missle overlap 
-    alien1.overlap(missles);
+    alien1.overlap(missles,alienHit);
 
     //  alien position within canvas
-
     if(alien1.position.x > 900){
         alien1.position.x = 0
     }
-
-
-
 
     // alienHit();
     drawSprites();
@@ -110,21 +105,13 @@ function draw(){
 
 
 
+function alienHit(alien, missle){
+    let explode = alien.type-1;
 
 
-// function alienHit(alien){
-//     // let newType = alien.type - 1;
-//     if(missles.overlap(alien)){
-//         console.log(missles);
-//     }
-//     // for(let i=0; i < 10; i++){
-//     //     let explodeAlien = createSprite(missle.position.x, missle.position.y);
-
-//     // }
-//     missles.remove();
-//     alien.remove();
-
-// }
+    missle.remove();
+    alien.remove();
+}
 
 
 
