@@ -13,7 +13,7 @@ The aliens attempt to destroy the player's cannon by firing at it while they app
 
 
 ## Play My Game
-[Space Invaders](itzamna-space-invadors.surge.sh)
+[Space Invaders](http://itzamna-space-invadors.surge.sh/)
 
 ## A list of the main technologies you plan to use.
 HTML, CSS, JAVASCRIPT 
