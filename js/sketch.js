@@ -2,13 +2,14 @@
 
 let player;
 let aliens = []; 
-let missles;
+let missles = [];
 let spaceShipImage, boulderImage, alienImage, missleImage;
 
 // --------alien rows --------------
-
 let alienRow1;
-
+let alienRow2;
+let alienRow3;
+let alienRow4;
 //  --------------------------------
 
 function preload(){
@@ -23,12 +24,14 @@ function preload(){
 function setup(){
     createCanvas(900, 700);
 
+    // spaceship = player 
     player = createSprite(width/2, height - 30);
     player.addImage('normal',spaceShipImage);
     player.maxSpeed = 2;
     player.friction = 0.98;
     player.setCollider('circle', 0 ,0, 20 );
 
+    // boulders are static
     boulder1 = createSprite(200, 500);
     boulder1.addImage(boulderImage);
     boulder2 = createSprite(450, 500);
@@ -36,33 +39,20 @@ function setup(){
     boulder3 = createSprite(700,500);
     boulder3.addImage(boulderImage);
 
-    // testing alien
-    // alien1 = createSprite(100,100);
-    // alien1.addImage(alienImage);
-    // alien1.velocity.x = 0.8;
 
+    //  ----------- level 1 of game ------------
+    alienRow1 = createAlienRow(10, 50);
+    alienRow2 = createAlienRow(10,100);
+    alienRow3 = createAlienRow(10, 150);
+    alienRow4 = createAlienRow(10,200);
 
-    //  ----------- testing one alien reproduction function ------------
-
-    // alien2 = createAlien(100, 200);
-
-    //  ----------- testing row alien reproduction function ------------
-    alienRow1 =  createAlienRow(10, 50);
-
-
-
-    // going to create a group of aliens by row  ~~~~ 1 row = 11 aliens etc.
-    // aliens = new Group();
-    // console.log(aliens)
-
-    //  missle testing  
+    // missle 
     missleImage = loadImage('../media/missle.png')
     missles = new Group()
 }
 
 function draw(){
     background(255,0,0);
-
 
     //  controll the spaceship by using left & right arrow key
     // condition to constrain the image of the spacewith within the canvas
@@ -77,6 +67,7 @@ function draw(){
         player.position.x = player.position.x - 4;
         // console.log(player.position.x)
     }
+
     // shoot missle vertically 
     if(keyDown(UP_ARROW))
     {
@@ -87,38 +78,26 @@ function draw(){
         missles.add(missle)
     }
 
-    //  --------------------------------------------------------------
-    // target and shoot aliens ~~~ calls on alien hit function 
-    // alien1.overlap(missles,alienHit);
-
-
-
     //  alien movement position within canvas
-    // if(alien1.position.x > 900){
-    //     alien1.position.x = 0
-    // }
-
-
-
-    //  row aliens 
     for(let a=0; a < aliens.length; a++){
         if(aliens[a].position.x > 900){
             aliens[a].position.x = 0;
         }
-        aliens[a].overlap(missles,alienHit);
+        // target + shoot aliens off of screen ]
+        // set a conditional so that this happens stop the trajectory of the missle hence remove it 
+        aliens[a].overlap(missles,alienHit); 
     }
-
-    // ---------------------------------------------------------------
-
-
     drawSprites();
 }
 
-function alienHit(alien, missle){
+function alienHit(alien, missles){
     let explode = alien.type - 1;
-    missle.remove();
+
     alien.remove();
+    missles.remove();
 }
+//  how to get missle to stop its trajectory 
+// 
 
 function createAlienRow(xR, yR){
     for(let a = 0; a < 8; a++){
@@ -132,6 +111,3 @@ function createAlien(position_x, position_y){
     create_alien.velocity.x = 0.8;
     aliens.push(create_alien);
 };
-
-
-
