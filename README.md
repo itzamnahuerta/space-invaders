@@ -12,6 +12,9 @@ The player defeats an alien and earns points by shooting it with the laser canno
 The aliens attempt to destroy the player's cannon by firing at it while they approach the bottom of the screen. If they reach the bottom, the alien invasion is declared successful and the game ends tragically. The game will also end if all the player's cannons are destroyed by the enemies. 
 
 
+## Play My Game
+[Space Invaders](itzamna-space-invadors.surge.sh)
+
 ## A list of the main technologies you plan to use.
 HTML, CSS, JAVASCRIPT 
 
